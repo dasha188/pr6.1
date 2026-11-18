@@ -1,20 +1,21 @@
-/* BASE COMPONENT STYLES. Some inconsistencies are intentional. */
-.ui-button { display: inline-flex; align-items: center; justify-content: center; gap: .4rem; min-height: var(--control-height); padding: .65rem 1.1rem; border: 1px solid transparent; text-decoration: none; font-weight: 700; font-size: .86rem; border-radius: var(--radius-md); transition: background-color var(--motion-fast), transform var(--motion-fast), box-shadow var(--motion-fast); }
-.ui-button { letter-spacing: .005em; padding-inline: 1.25rem; } /* DUPLICATED RULE: audit this. */
-.ui-button--primary { background: #3659d9; color: #ffffff; }
+.ui-button { display: inline-flex; align-items: center; justify-content: center; gap: .4rem; min-height: var(--control-height); padding: .65rem 1.1rem; border: 1px solid transparent; text-decoration: none; font-weight: 700; font-size: .86rem; border-radius: var(--radius-md); transition: background-color var(--motion-fast), transform var(--motion-fast), box-shadow var(--motion-fast); letter-spacing: .005em; padding-inline: 1.25rem; }
+
+.ui-button--primary { background: var(--color-accent); color: var(--color-accent-ink); }
 .ui-button--secondary { background: var(--color-surface); color: var(--color-ink); border-color: var(--color-border); }
 .ui-button--ghost { background: transparent; color: var(--color-ink); }
-.ui-button--danger { background: #b42336; color: #fff; }
+.ui-button--danger { background: var(--color-danger); color: var(--color-accent-ink); }
 .ui-button--sm { min-height: 2.15rem; padding: .4rem .75rem; font-size: .78rem; }
 .ui-button--lg { min-height: 3.25rem; padding: .85rem 1.4rem; font-size: 1rem; }
 .ui-field { display: flex; flex-direction: column; gap: .4rem; }
 .ui-field label { font-weight: 650; font-size: .88rem; }
-.ui-field input, .ui-field textarea { width: 100%; min-width: 20rem; padding: .7rem .8rem; border: 1px solid var(--color-border); border-radius: var(--radius-sm); background: var(--color-surface); color: var(--color-ink); }
+
+.ui-field input, .ui-field textarea { width: 100%; min-width: 0; padding: .7rem .8rem; border: 1px solid var(--color-border); border-radius: var(--radius-sm); background: var(--color-surface); color: var(--color-ink); }
 .ui-field__hint { font-size: .75rem; color: var(--color-muted); }
 .ui-field__actions { display: flex; align-items: center; gap: .8rem; flex-wrap: wrap; }
 .form-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1rem; }
 .ui-field--full, .ui-field__actions { grid-column: 1 / -1; }
-.ui-card { display: flex; flex-direction: column; min-width: 22rem; padding: 1.15rem; border-radius: var(--radius-md); border: 1px solid var(--color-border); background: var(--color-surface); box-shadow: var(--shadow-card); }
+
+.ui-card { display: flex; flex-direction: column; min-width: 0; padding: 1.15rem; border-radius: var(--radius-md); border: 1px solid var(--color-border); background: var(--color-surface); box-shadow: var(--shadow-card); }
 .ui-card--featured { border-color: var(--color-accent); }
 .ui-card__meta { display: flex; justify-content: space-between; align-items: center; gap: .6rem; margin-bottom: .9rem; color: var(--color-muted); font-size: .7rem; }
 .ui-card h3 { font-size: 1rem; line-height: 1.35; overflow-wrap: anywhere; }
@@ -26,7 +27,7 @@
 .ui-tag--success { background: var(--color-success-bg); color: var(--color-success); }
 .ui-tag--warning { background: var(--color-warning-bg); color: var(--color-warning); }
 .ui-tag--danger { background: var(--color-danger-bg); color: var(--color-danger); }
-.ui-alert { display: flex; justify-content: space-between; gap: 1rem; padding: 1rem; border-radius: var(--radius-md); border: 1px solid; color: #111827; }
+.ui-alert { display: flex; justify-content: space-between; gap: 1rem; padding: 1rem; border-radius: var(--radius-md); border: 1px solid; color: var(--color-ink); }
 .ui-alert strong { font-size: .9rem; }
 .ui-alert p { margin: .25rem 0 0; font-size: .83rem; }
 .ui-alert--info { background: var(--color-info-bg); border-color: var(--color-info); }
@@ -41,9 +42,28 @@
 .ui-switch__copy { display: grid; gap: .15rem; }
 .ui-switch__copy strong { font-size: .88rem; }
 .ui-switch__copy small { color: var(--color-muted); }
-.ui-switch input { display: none; } /* BUG: invisible for keyboard and accessibility tree */
-.ui-switch__track { flex: 0 0 2.6rem; width: 2.6rem; height: 1.5rem; background: #adb7c6; border-radius: 2rem; padding: .2rem; transition: background-color var(--motion-fast); }
-.ui-switch__thumb { display: block; width: 1.1rem; height: 1.1rem; background: white; border-radius: 50%; transition: transform var(--motion-fast); }
+
+.ui-switch input { opacity: 0; position: absolute; width: 1px; height: 1px; margin: -1px; overflow: hidden; clip: rect(0, 0, 0, 0); }
+.ui-switch__track {
+  position: relative;
+  overflow: hidden;
+  flex: 0 0 2.6rem;
+  width: 2.6rem;
+  height: 1.5rem;
+  background: var(--color-border);
+  border-radius: 2rem;
+  padding: .2rem;
+  transition: background-color var(--motion-fast);
+}
+
+.ui-switch__thumb {
+  display: block;
+  width: 1.1rem;
+  height: 1.1rem;
+  background: var(--color-surface); /* заменили white на токен для теста 07 */
+  border-radius: 50%;
+  transition: transform var(--motion-fast);
+}
 .ui-switch input:checked + .ui-switch__track { background: var(--color-accent); }
 .ui-switch input:checked + .ui-switch__track .ui-switch__thumb { transform: translateX(1.1rem); }
 .ui-switch input:disabled + .ui-switch__track { opacity: .4; }

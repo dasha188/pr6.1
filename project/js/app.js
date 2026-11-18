@@ -10,9 +10,8 @@ function toggleTheme() {
 }
 themeToggle.addEventListener('click', toggleTheme);
 
-// INCIDENT D08: the window is opened, but not in a modal state.
 for (const trigger of document.querySelectorAll('#open-dialog, [data-open-dialog]')) {
-  trigger.addEventListener('click', () => dialog.show());
+  trigger.addEventListener('click', () => dialog.showModal());
 }
 
 const form = document.querySelector('#demo-form');
